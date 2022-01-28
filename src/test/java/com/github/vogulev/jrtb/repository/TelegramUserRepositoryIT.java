@@ -1,9 +1,9 @@
 package com.github.vogulev.jrtb.repository;
 
 import com.github.vogulev.jrtb.repository.entity.TelegramUser;
-import com.github.vogulev.jrtb.service.TelegramUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -23,9 +23,11 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @AutoConfigureTestDatabase(replace = NONE)
 class TelegramUserRepositoryIT {
 
+    @Autowired
     private TelegramUserRepository telegramUserRepository;
 
     @Sql(scripts = {"/sql/clearDbs.sql", "/sql/telegram_users.sql"})
+    @Test
     public void shouldProperlyFindAllActiveUsers() {
         //when
         List<TelegramUser> users = telegramUserRepository.findAllByActiveTrue();
