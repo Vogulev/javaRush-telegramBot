@@ -16,8 +16,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
  */
 abstract class AbstractCommandTest {
 
-    protected JavarushTelegramBot javarushBot = Mockito.mock(JavarushTelegramBot.class);
-    protected SendBotMessageService sendBotMessageService = new SendBotMessageServiceImpl(javarushBot);
+    protected JavarushTelegramBot javaRushBot = Mockito.mock(JavarushTelegramBot.class);
+    protected SendBotMessageService sendBotMessageService = new SendBotMessageServiceImpl(javaRushBot);
     protected TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
 
     abstract String getCommandName();
@@ -46,6 +46,6 @@ abstract class AbstractCommandTest {
         getCommand().execute(update);
 
         //then
-        Mockito.verify(javarushBot).execute(sendMessage);
+        Mockito.verify(javaRushBot).execute(sendMessage);
     }
 }
