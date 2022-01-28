@@ -6,7 +6,7 @@ import static com.github.vogulev.jrtb.command.CommandName.START;
 import static com.github.vogulev.jrtb.command.StartCommand.START_MESSAGE;
 
 @DisplayName("Unit-level testing for StartCommand")
-class StartCommandTest extends AbstractCommandTest{
+class StartCommandTest extends AbstractCommandTest {
 
     @Override
     String getCommandName() {
@@ -20,6 +20,6 @@ class StartCommandTest extends AbstractCommandTest{
 
     @Override
     Command getCommand() {
-        return new StartCommand(sendBotMessageService);
+        return new StartCommand(sendBotMessageService, telegramUserService);
     }
 }
