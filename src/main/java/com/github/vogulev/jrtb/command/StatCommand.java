@@ -2,7 +2,6 @@ package com.github.vogulev.jrtb.command;
 
 import com.github.vogulev.jrtb.service.SendBotMessageService;
 import com.github.vogulev.jrtb.service.TelegramUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
@@ -24,6 +23,6 @@ public class StatCommand implements Command {
     public void execute(Update update) {
         int activeUserCount = telegramUserService.retrieveAllActiveUsers().size();
         sendBotMessageService
-                .sendMessage(update.getMessage().getChatId().toString(), String.format(STAT_MESSAGE, activeUserCount));
+                .sendMessage(update.getMessage().getChatId(), String.format(STAT_MESSAGE, activeUserCount));
     }
 }
