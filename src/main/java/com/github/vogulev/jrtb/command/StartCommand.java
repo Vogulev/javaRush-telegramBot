@@ -5,6 +5,8 @@ import com.github.vogulev.jrtb.service.SendBotMessageService;
 import com.github.vogulev.jrtb.service.TelegramUserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.github.vogulev.jrtb.command.CommandUtils.getChatId;
+
 /**
  * Start {@link Command}.
  */
@@ -23,9 +25,7 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
-
-        telegramUserService.findByChatId(chatId).ifPresentOrElse(
+        telegramUserService.findByChatId(getChatId(update)).ifPresentOrElse(
                 user -> {
                     user.setActive(true);
                     telegramUserService.save(user);
@@ -33,11 +33,11 @@ public class StartCommand implements Command {
                 () -> {
                     TelegramUser telegramUser = new TelegramUser();
                     telegramUser.setActive(true);
-                    telegramUser.setChatId(chatId);
+                    telegramUser.setChatId(getChatId(update));
                     telegramUserService.save(telegramUser);
                 }
         );
 
-        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), START_MESSAGE);
+        sendBotMessageService.sendMessage(update.getMessage().getChatId(), START_MESSAGE);
     }
 }
