@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.github.vogulev.jrtb.javarushclient.dto.GroupInfoType.TECH;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Integration-level testing for JavaRushGroupClientImplTest")
 class JavaRushGroupClientTest {
 
-    private final JavaRushGroupClient groupClient = new JavaRushGroupClientImpl("https://javarush.ru/api/1.0/rest");
+    public static final String JAVARUSH_API_PATH = "https://javarush.ru/api/1.0/rest";
+    private final JavaRushGroupClient groupClient = new JavaRushGroupClientImpl(JAVARUSH_API_PATH);
 
     @Test
     public void shouldProperlyGetGroupsWithEmptyArgs() {

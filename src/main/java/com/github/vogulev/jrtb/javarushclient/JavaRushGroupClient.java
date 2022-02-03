@@ -4,7 +4,7 @@ import com.github.vogulev.jrtb.javarushclient.dto.GroupDiscussionInfo;
 import com.github.vogulev.jrtb.javarushclient.dto.GroupInfo;
 import com.github.vogulev.jrtb.javarushclient.dto.GroupRequestArgs;
 import com.github.vogulev.jrtb.javarushclient.dto.GroupsCountRequestArgs;
-
+import com.github.vogulev.jrtb.repository.entity.GroupSub;
 import java.util.List;
 
 /**
@@ -43,4 +43,12 @@ public interface JavaRushGroupClient {
      * @return {@link GroupDiscussionInfo} object.
      */
     GroupDiscussionInfo getGroupById(Integer id);
+
+    /**
+     * Get last article id
+     *
+     * @param groupSubId id of the {@link GroupSub}
+     * @return id of the last added article
+     */
+    Integer findLastArticleId(Integer groupSubId);
 }

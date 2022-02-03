@@ -1,5 +1,6 @@
 package com.github.vogulev.jrtb.service;
 
+import com.github.vogulev.jrtb.javarushclient.JavaRushGroupClient;
 import com.github.vogulev.jrtb.javarushclient.dto.GroupDiscussionInfo;
 import com.github.vogulev.jrtb.repository.GroupSubRepository;
 import com.github.vogulev.jrtb.repository.entity.GroupSub;
@@ -16,6 +17,7 @@ class GroupSubServiceTest {
 
     private GroupSubService groupSubService;
     private GroupSubRepository groupSubRepository;
+    private JavaRushGroupClient javaRushGroupClient;
     private TelegramUser newUser;
 
     private final static Long CHAT_ID = 1L;
@@ -24,7 +26,8 @@ class GroupSubServiceTest {
     public void init() {
         TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
         groupSubRepository = Mockito.mock(GroupSubRepository.class);
-        groupSubService = new GroupSubServiceImpl(groupSubRepository, telegramUserService);
+        javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
+        groupSubService = new GroupSubServiceImpl(groupSubRepository, telegramUserService, javaRushGroupClient);
 
         newUser = new TelegramUser();
         newUser.setActive(true);
