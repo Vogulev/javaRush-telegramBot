@@ -3,10 +3,10 @@ package com.github.vogulev.jrtb.service;
 /**
  * Service for finding new articles.
  */
-public interface FindNewArticleService {
+public interface FindNewPostService {
 
     /**
      * Find new articles and notify subscribers about it.
      */
-    void findNewArticles();
+    void findNewPosts();
 }

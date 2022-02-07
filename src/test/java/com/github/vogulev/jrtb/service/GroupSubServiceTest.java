@@ -37,7 +37,7 @@ class GroupSubServiceTest {
 
         Mockito.when(telegramUserService.findByChatId(CHAT_ID)).thenReturn(Optional.of(newUser));
 
-        Mockito.when(javaRushGroupClient.findLastArticleId(GROUP_ID)).thenReturn(LAST_POST_ID);
+        Mockito.when(javaRushGroupClient.findLastPostId(GROUP_ID)).thenReturn(LAST_POST_ID);
     }
 
     @Test
@@ -51,7 +51,7 @@ class GroupSubServiceTest {
         GroupSub expectedGroupSub = new GroupSub();
         expectedGroupSub.setId(groupDiscussionInfo.getId());
         expectedGroupSub.setTitle(groupDiscussionInfo.getTitle());
-        expectedGroupSub.setLastArticleId(LAST_POST_ID);
+        expectedGroupSub.setLastPostId(LAST_POST_ID);
         expectedGroupSub.addUser(newUser);
 
         //when

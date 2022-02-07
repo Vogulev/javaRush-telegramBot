@@ -19,11 +19,11 @@ public interface TelegramUserService {
     void save(TelegramUser telegramUser);
 
     /**
-     * Retrieve all active {@link TelegramUser}.
+     * Find all active {@link TelegramUser}.
      *
      * @return the collection of the active {@link TelegramUser} objects.
      */
-    List<TelegramUser> retrieveAllActiveUsers();
+    List<TelegramUser> findAllActiveUsers();
 
     /**
      * Find {@link TelegramUser} by chatId.
@@ -34,16 +34,9 @@ public interface TelegramUserService {
     Optional<TelegramUser> findByChatId(Long chatId);
 
     /**
-     * Retrieve all inactive {@link TelegramUser}
+     * Find all inactive {@link TelegramUser}
      *
      * @return the collection of the inactive {@link TelegramUser} objects.
      */
     List<TelegramUser> findAllInActiveUsers();
-
-    /**
-     * Retrieve all active {@link TelegramUser}
-     *
-     * @return the collection of the active {@link TelegramUser} objects.
-     */
-    List<TelegramUser> findAllActiveUsers();
 }
