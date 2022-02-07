@@ -1,9 +1,13 @@
 package com.github.vogulev.jrtb.command;
 
 import com.github.vogulev.jrtb.command.annotation.AdminCommand;
+import com.github.vogulev.jrtb.javarushclient.dto.StatisticDTO;
 import com.github.vogulev.jrtb.service.SendBotMessageService;
-import com.github.vogulev.jrtb.service.TelegramUserService;
+import com.github.vogulev.jrtb.service.StatisticsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.util.stream.Collectors;
 
 /**
  * Statistics {@link Command}.
@@ -11,20 +15,34 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @AdminCommand
 public class StatCommand implements Command {
 
-    private final TelegramUserService telegramUserService;
+    private final StatisticsService statisticsService;
     private final SendBotMessageService sendBotMessageService;
 
-    public final static String STAT_MESSAGE = "Javarush Telegram Bot использует %s человек.";
+    public final static String STAT_MESSAGE = "✨<b>Подготовил статистику</b>✨\n" +
+            "- Количество активных пользователей: %s\n" +
+            "- Количество неактивных пользователей: %s\n" +
+            "- Среднее количество групп на одного пользователя: %s\n\n" +
+            "<b>Информация по активным группам</b>:\n" +
+            "%s";
 
-    public StatCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
-        this.telegramUserService = telegramUserService;
+    @Autowired
+    public StatCommand(SendBotMessageService sendBotMessageService, StatisticsService statisticsService) {
         this.sendBotMessageService = sendBotMessageService;
+        this.statisticsService = statisticsService;
     }
 
     @Override
     public void execute(Update update) {
-        int activeUserCount = telegramUserService.retrieveAllActiveUsers().size();
-        sendBotMessageService
-                .sendMessage(update.getMessage().getChatId(), String.format(STAT_MESSAGE, activeUserCount));
+        StatisticDTO statisticDTO = statisticsService.countBotStatistic();
+
+        String collectedGroups = statisticDTO.getGroupStatDTOs().stream()
+                .map(it -> String.format("%s (id = %s) - %s подписчиков", it.getTitle(), it.getId(), it.getActiveUserCount()))
+                .collect(Collectors.joining("\n"));
+
+        sendBotMessageService.sendMessage(update.getMessage().getChatId(), String.format(STAT_MESSAGE,
+                statisticDTO.getActiveUserCount(),
+                statisticDTO.getInactiveUserCount(),
+                statisticDTO.getAverageGroupCountByUser(),
+                collectedGroups));
     }
 }

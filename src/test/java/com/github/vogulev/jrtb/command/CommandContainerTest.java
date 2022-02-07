@@ -3,6 +3,7 @@ package com.github.vogulev.jrtb.command;
 import com.github.vogulev.jrtb.javarushclient.JavaRushGroupClient;
 import com.github.vogulev.jrtb.service.GroupSubService;
 import com.github.vogulev.jrtb.service.SendBotMessageService;
+import com.github.vogulev.jrtb.service.StatisticsService;
 import com.github.vogulev.jrtb.service.TelegramUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +25,9 @@ class CommandContainerTest {
         TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
         JavaRushGroupClient javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
         GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
+        StatisticsService statisticsService = Mockito.mock(StatisticsService.class);
         commandContainer = new CommandContainer(sendBotMessageService, telegramUserService,
-                javaRushGroupClient, groupSubService, Collections.singletonList("username"));
+                javaRushGroupClient, groupSubService, statisticsService, Collections.singletonList("username"));
     }
 
     @Test
