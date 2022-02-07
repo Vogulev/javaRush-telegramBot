@@ -1,5 +1,6 @@
 package com.github.vogulev.jrtb.command;
 
+import com.github.vogulev.jrtb.command.annotation.AdminCommand;
 import com.github.vogulev.jrtb.service.SendBotMessageService;
 import com.github.vogulev.jrtb.service.TelegramUserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -7,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 /**
  * Statistics {@link Command}.
  */
+@AdminCommand
 public class StatCommand implements Command {
 
     private final TelegramUserService telegramUserService;
